@@ -45,10 +45,29 @@ void turnShow() { //  Function called to execute a multiple turn
   longRightTurn();
 }
 
-
+/*steerLeft
+ * steerRight
+ * neutral
+ * speedCenter
+ * forwardSpeed
+ * forwardSpeedMax
+ * reverseSpeed
+ * turnSpeedDirTime(int Speed, int Direction, int Time)
+ */
 void autoDrive(){
   steer.write(neutral);
-  speedFMax(); 
+  speedFMax();
+  delay(300);
+  slowDownSpeed();
+  delay(300);
+  leftTurn();
+  speedCenterN();
+  turnSpeedDirTime(steerRight,reverseSpeed,50);
+  speedCenterN();
+  turnSpeedDirTime(steerLeft,forwardSpeed,50);
+  speedFMax();
+  delay(300);
+  speedCenterN();  
 }
 
 
