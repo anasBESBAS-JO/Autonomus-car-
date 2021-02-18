@@ -22,7 +22,8 @@ int direct = steer.read(); // read actual servo direction
 
 //Motor Speed control -> PWM signal
 const int speedCenter = 1450;  // neutral
-int forwardSpeed = 1380;       // MAX Speed front
+int forwardSpeed = 1380;       // Min Speed front
+int forwardSpeedMax = 1250;    // Max Speed front
 int reverseSpeed = 1550;       // reverse
 
 #define DHTPIN 4      //define the digital pin for DHT temprature Sensor
@@ -81,19 +82,36 @@ void setup() {
 
 void loop() {
   blinking();
-  accelatarte();
   Serial.println("Ready to recive :)");
   if (irrecv.decode(&results)) {
     Serial.println(results.value, HEX);
     irrecv.resume();
-    if (results.value == 0xFF30CF) {
+    if (results.value == 0xFF30CF) { // press 1 
       blinking();
-      Serial.println("hi");
+      Serial.println("autoDrive() >>> Loading");
+      autoDrive();
+      Serial.println("autoDrive() >>> Done");
       irrecv.resume();
-    } else if (irrecv.decode(&results) == 0xFF30CF) {
+    } else if (irrecv.decode(&results) == 0xFF30D) { // press 2 
       blinking();
       Serial.println(results.value, HEX);
-      turnShow();
+      Serial.println("accelatarte() >>> Loading");
+      accelatarte();
+      Serial.println("accelatarte() >>> Done");
+      irrecv.resume();
+    } else if (irrecv.decode(&results) == 0xFF30CE) { // press 3 
+      blinking();
+      Serial.println(results.value, HEX);
+      Serial.println("overTaking() >>> Loading");
+      overTaking();
+      Serial.println("overTaking() >>> Done");
+      irrecv.resume();
+    } else if (irrecv.decode(&results) == 0xFF30CA) { // press 4
+      blinking();
+      Serial.println(results.value, HEX);
+      Serial.println("autoParking() >>> Loading");
+      autoParking();
+      Serial.println("autoParking() >>> Done");
       irrecv.resume();
     }
   }
