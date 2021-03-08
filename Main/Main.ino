@@ -82,7 +82,8 @@ void setup() {
 
 void loop() {
   blinking();
-  Serial.println("Ready to recive :)");
+  accelatarte();
+ /* Serial.println("Ready to recive :)");
   if (irrecv.decode(&results)) {
     Serial.println(results.value, HEX);
     irrecv.resume();
@@ -114,5 +115,5 @@ void loop() {
       Serial.println("autoParking() >>> Done");
       irrecv.resume();
     }
-  }
+  }*/
 }
